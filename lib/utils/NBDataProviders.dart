@@ -42,14 +42,14 @@ List<NBBannerItemModel> nbGetBannerItems() {
 List<NBDrawerItemModel> nbGetDrawerItems() {
   List<NBDrawerItemModel> drawerItems = [];
   drawerItems.add(NBDrawerItemModel(title: 'Home'));
-  drawerItems
-      .add(NBDrawerItemModel(title: 'Audio', widget: NBAudioArticleScreen()));
+  // drawerItems
+  //     .add(NBDrawerItemModel(title: 'Audio', widget: NBAudioArticleScreen()));
   drawerItems.add(NBDrawerItemModel(
       title: 'Create New Article', widget: NBCreateNewArticleScreen()));
   drawerItems
-      .add(NBDrawerItemModel(title: 'Bookmark', widget: NBBookmarkScreen()));
-  drawerItems.add(
-      NBDrawerItemModel(title: 'Membership', widget: NBMembershipScreen()));
+      .add(NBDrawerItemModel(title: 'All News', widget: NBBookmarkScreen()));
+  // drawerItems.add(
+  //     NBDrawerItemModel(title: 'Membership', widget: NBMembershipScreen()));
   drawerItems
       .add(NBDrawerItemModel(title: 'Setting', widget: NBSettingScreen()));
   return drawerItems;

@@ -73,7 +73,7 @@ class NBHomeScreenState extends State<NBHomeScreen>
             _scaffoldKey.currentState!.openDrawer();
           },
         ),
-        title: Text('News Blog', style: boldTextStyle(size: 20)),
+        title: Text('Sports Caster', style: boldTextStyle(size: 20)),
         backgroundColor: context.cardColor,
         centerTitle: true,
         bottom: TabBar(
@@ -108,8 +108,8 @@ class NBHomeScreenState extends State<NBHomeScreen>
                   contentPadding: EdgeInsets.only(left: 0),
                   leading: CircleAvatar(
                       backgroundImage: AssetImage(NBProfileImage), radius: 30),
-                  title: Text('Robert Fox', style: boldTextStyle()),
-                  subtitle: Text('View Profile', style: secondaryTextStyle()),
+                  title: Text('Arshad Ahammed', style: boldTextStyle()),
+                  subtitle: Text('Admin', style: secondaryTextStyle()),
                   onTap: () {
                     finish(context);
                     NBProfileScreen().launch(context);

@@ -1,4 +1,5 @@
 import 'package:agriappadmin/model/NBModel.dart';
+import 'package:agriappadmin/provider/create_article_provider.dart';
 import 'package:agriappadmin/provider/get_articles_provider.dart';
 import 'package:agriappadmin/screen/NBEditArticleScreen.dart';
 import 'package:agriappadmin/screen/NBNewsDetailsScreen.dart';
@@ -17,11 +18,11 @@ class NBBookmarkScreen extends StatefulWidget {
 }
 
 class NBBookmarkScreenState extends State<NBBookmarkScreen> {
-  List<String> dropDownItems = ['Most Recent', 'Ascending', 'Descending'];
+  List<String> dropDownItems = ['football', 'cricket', 'tennis', 'others'];
   List<NBNewsDetailsModel> newsList = nbGetNewsDetails();
   List<NBNewsDetailsModel> bookmarkNewsList = [];
 
-  String? dropDownValue = 'Most Recent';
+  String? dropDownValue = 'football';
 
   @override
   void initState() {
@@ -37,6 +38,35 @@ class NBBookmarkScreenState extends State<NBBookmarkScreen> {
     });
   }
 
+  //alert Dialouge
+  Future<bool> showConfirmationDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmation'),
+          content: Text('Are you sure you want to delete this article?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(false); // Return false when cancel is pressed
+              },
+            ),
+            TextButton(
+              child: Text('Delete'),
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(true); // Return true when delete is pressed
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void setState(fn) {
     if (mounted) super.setState(fn);
@@ -44,11 +74,13 @@ class NBBookmarkScreenState extends State<NBBookmarkScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var articleProvider = Provider.of<CreateArticleProvider>(context);
+
     return Scaffold(
-      appBar: nbAppBarWidget(context, title: 'Bookmark'),
+      appBar: nbAppBarWidget(context, title: 'News Articles'),
       body: Consumer<getArticleProvider>(
           builder: (context, getArticleProvider, child) {
-        getArticleProvider.getArticles();
+        getArticleProvider.getArticles(dropDownValue!);
         return bookmarkNewsList.length != 0
             ? SingleChildScrollView(
                 child: Column(
@@ -153,12 +185,19 @@ class NBBookmarkScreenState extends State<NBBookmarkScreen> {
                                         },
                                         onSelected: (dynamic value) {
                                           setState(
-                                            () {
+                                            () async {
                                               //remove
                                               if (value == 'Remove') {
-                                                // mData.isBookmark =
-                                                //     !mData.isBookmark;
-                                                // bookmarkNewsList.remove(mData);
+                                                bool confirmed =
+                                                    await showConfirmationDialog(
+                                                        context);
+
+                                                if (confirmed) {
+                                                  // Proceed with the deletion logic here
+                                                  articleProvider
+                                                      .deleteArticlefuc(
+                                                          articles.id);
+                                                }
                                               }
                                               //Edit
                                               if (value == 'Edit') {

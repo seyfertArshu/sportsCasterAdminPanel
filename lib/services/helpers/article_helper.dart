@@ -100,13 +100,76 @@ class ArticleHelper {
       print("Article response is loaded");
       var articleList = articleResponseFromJson(response.body);
       // Get.snackbar("New Article Added", "Check it out!",
-      //     colorText: Colors.white,
+      //     colorText: Colors .white,
       //     backgroundColor: Colors.red,
       //     icon: const Icon(Icons.add_alert));
 
       return articleList;
     } else {
       throw Exception("Failed to get the articles");
+    }
+  }
+
+  //get catogeryarticle
+  static Future<List<ArticleResponse>> getCategoryArticles(
+      String category) async {
+    // final SharedPreferences pref = await SharedPreferences.getInstance();
+    //String? token = pref.getString('token');
+
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    var url =
+        Uri.https(Config.apiUrl, "${Config.getcategoryArticlesUrl}/$category");
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      print("Article response is loaded");
+      var articleList = articleResponseFromJson(response.body);
+      // Get.snackbar("New Article Added", "Check it out!",
+      //     colorText: Colors .white,
+      //     backgroundColor: Colors.red,
+      //     icon: const Icon(Icons.add_alert));
+
+      return articleList;
+    } else {
+      throw Exception("Failed to get the articles");
+    }
+  }
+
+  //Delete article
+  static Future<bool> deleteArticle(String userId) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'token': 'Bearer $token'
+    };
+    var url = Uri.https(Config.apiUrl, "${Config.deleteArticleUrl}/$userId");
+    var response = await client.delete(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      print("Sucess");
+      // Get.snackbar("Article Updated", "Check it out!",
+      //     colorText: Colors.white,
+      //     backgroundColor: Colors.red,
+      //     icon: const Icon(Icons.add_alert));
+
+      return true;
+    } else {
+      print("failed");
+      print(response.body);
+      //  Get.snackbar("Sign Failed", "Check Your Credential",
+      //       colorText: Colors.white,
+      //       backgroundColor: Colors.red,
+      //       icon: const Icon(Icons.add_alert));
+
+      return false;
     }
   }
 }

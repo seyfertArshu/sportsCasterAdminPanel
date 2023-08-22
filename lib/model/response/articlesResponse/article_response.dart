@@ -26,6 +26,8 @@ class ArticleResponse {
   final String twitterId;
   final String imageUrl;
   final String websiteUrl;
+  final String slug;
+
   final String id;
   final DateTime createdAt;
 
@@ -38,6 +40,7 @@ class ArticleResponse {
     required this.topTrend,
     required this.twitterId,
     required this.imageUrl,
+    required this.slug,
     required this.websiteUrl,
     required this.id,
     required this.createdAt,
@@ -54,6 +57,7 @@ class ArticleResponse {
         twitterId: json["twitterId"],
         imageUrl: json["imageUrl"],
         websiteUrl: json["websiteUrl"],
+        slug: json["slug"],
         id: json["_id"],
         createdAt: DateTime.parse(json["createdAt"]),
       );
@@ -68,6 +72,7 @@ class ArticleResponse {
         "twitterId": twitterId,
         "imageUrl": imageUrl,
         "websiteUrl": websiteUrl,
+        "slug": slug,
         "_id": id,
         "createdAt": createdAt.toIso8601String(),
       };

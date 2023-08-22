@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class getArticleProvider extends ChangeNotifier {
   late Future<List<ArticleResponse>> articleList;
 
-  getArticles() {
-    articleList = ArticleHelper.getArticles();
+  getArticles(String category) {
+    articleList = ArticleHelper.getCategoryArticles(category);
   }
 }

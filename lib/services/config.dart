@@ -11,4 +11,5 @@ class Config {
   static const String getAllArticleUrl = "/api/article";
 
   static const String searchArticleUrl = "/api/article";
+  static const String getcategoryArticlesUrl = "/api/article/findArticle";
 }

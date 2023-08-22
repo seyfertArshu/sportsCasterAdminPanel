@@ -33,6 +33,8 @@ class NBEditNewsArticleScreenState extends State<NBEditNewsArticleScreen> {
   TextEditingController twitterIdController = TextEditingController();
   TextEditingController websiteUrlController = TextEditingController();
   //add website url extfild
+  TextEditingController slugController = TextEditingController();
+
   TextEditingController descriptionController = TextEditingController();
   final articleFormKey = GlobalKey<FormState>();
   String selectCategories = 'Select Categories';
@@ -45,6 +47,20 @@ class NBEditNewsArticleScreenState extends State<NBEditNewsArticleScreen> {
     // Set the initial values of the article
 
     init();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    authorController.dispose();
+    contentController.dispose();
+    categoryController.dispose();
+    twitterIdController.dispose();
+    descriptionController.dispose();
+    websiteUrlController.dispose();
+    slugController.dispose();
+
+    super.dispose();
   }
 
   Future<void> init() async {
@@ -178,6 +194,17 @@ class NBEditNewsArticleScreenState extends State<NBEditNewsArticleScreen> {
                 nbAppTextFieldWidget(twitterIdController,
                     widget.newsDetails!.twitterId, TextFieldType.OTHER),
                 16.height,
+                Text('Website URL', style: boldTextStyle()),
+                8.height,
+                nbAppTextFieldWidget(websiteUrlController,
+                    widget.newsDetails!.websiteUrl, TextFieldType.OTHER),
+                16.height,
+                //
+                Text('Slug', style: boldTextStyle()),
+                8.height,
+                nbAppTextFieldWidget(slugController, widget.newsDetails!.slug,
+                    TextFieldType.OTHER),
+                16.height,
 
                 Text('Categories', style: boldTextStyle()),
                 8.height,
@@ -277,12 +304,17 @@ class NBEditNewsArticleScreenState extends State<NBEditNewsArticleScreen> {
                         twitterId: twitterIdController.text.isNotEmpty
                             ? twitterIdController.text
                             : widget.newsDetails!.twitterId,
-                        websiteUrl: websiteUrlController.text,
+                        websiteUrl: websiteUrlController.text.isNotEmpty
+                            ? websiteUrlController.text
+                            : widget.newsDetails!.websiteUrl,
 
                         topTrend: topTrend,
                         imageUrl: widget.newsDetails!.imageUrl.isNotEmpty
                             ? widget.newsDetails!.imageUrl
                             : ImageUploaderProvier.imageUrl.toString(),
+                        slug: slugController.text.isNotEmpty
+                            ? slugController.text
+                            : widget.newsDetails!.slug,
                         //latest: latest,
                         //adminId: ,
                       );

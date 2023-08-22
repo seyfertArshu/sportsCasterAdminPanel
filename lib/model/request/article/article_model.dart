@@ -19,6 +19,7 @@ class ArticleModel {
   final String twitterId;
   final String imageUrl;
   final String websiteUrl;
+  final String slug;
 
   final bool topTrend;
 
@@ -32,6 +33,7 @@ class ArticleModel {
     required this.imageUrl,
     required this.websiteUrl,
     required this.topTrend,
+    required this.slug,
   });
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) => ArticleModel(
@@ -44,6 +46,7 @@ class ArticleModel {
         topTrend: json["topTrend"],
         imageUrl: json["imageUrl"],
         websiteUrl: json["websiteUrl"],
+        slug: json["slug"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -56,5 +59,6 @@ class ArticleModel {
         "topTrend": topTrend,
         "imageUrl": imageUrl,
         "websiteUrl": websiteUrl,
+        "slug": slug,
       };
 }

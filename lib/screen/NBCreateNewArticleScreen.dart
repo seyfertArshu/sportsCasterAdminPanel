@@ -29,6 +29,7 @@ class NBCreateNewArticleScreenState extends State<NBCreateNewArticleScreen> {
   TextEditingController categoryController = TextEditingController();
   TextEditingController twitterIdController = TextEditingController();
   TextEditingController websiteUrlController = TextEditingController();
+  TextEditingController slugController = TextEditingController();
 
   TextEditingController descriptionController = TextEditingController();
   final articleFormKey = GlobalKey<FormState>();
@@ -51,6 +52,7 @@ class NBCreateNewArticleScreenState extends State<NBCreateNewArticleScreen> {
     twitterIdController.dispose();
     descriptionController.dispose();
     websiteUrlController.dispose();
+    slugController.dispose();
     super.dispose();
   }
 
@@ -191,7 +193,14 @@ class NBCreateNewArticleScreenState extends State<NBCreateNewArticleScreen> {
                 nbAppTextFieldWidget(websiteUrlController, 'Write Website Url',
                     TextFieldType.OTHER),
                 16.height,
+                //slug
 
+                Text('Slug', style: boldTextStyle()),
+                8.height,
+                nbAppTextFieldWidget(
+                    slugController, 'Write Slug here', TextFieldType.OTHER),
+                16.height,
+                //categories
                 Text('Categories', style: boldTextStyle()),
                 8.height,
                 Container(
@@ -278,7 +287,7 @@ class NBCreateNewArticleScreenState extends State<NBCreateNewArticleScreen> {
                           title: titleController.text,
                           description: descriptionController.text,
                           imageUrl: ImageUploaderProvier.imageUrl.toString(),
-
+                          slug: slugController.text,
                           content: contentController.text,
                           category: categoryController.text,
                           twitterId: twitterIdController.text,
